@@ -46,6 +46,7 @@ Linker script and memory map
 
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
 LOAD ./MCAL_layer/GPIO_driver/gpio.o
+LOAD ./ECUAL_layer/SEVEN_SEG_driver/seven_seg.o
 LOAD ./ECUAL_layer/LED_driver/led.o
 LOAD ./ECUAL_layer/KEYPAD_driver/keypad.o
 LOAD ./ECUAL_layer/BUTTON_driver/button.o
@@ -144,7 +145,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x1a1a
+.text           0x00000000     0x1cdc
  *(.vectors)
  .vectors       0x00000000       0x54 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
                 0x00000000                __vectors
@@ -220,6 +221,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x0000007e                __vector_18
                 0x0000007e                __vector_20
  .text          0x00000082        0x0 ./MCAL_layer/GPIO_driver/gpio.o
+ .text          0x00000082        0x0 ./ECUAL_layer/SEVEN_SEG_driver/seven_seg.o
  .text          0x00000082        0x0 ./ECUAL_layer/LED_driver/led.o
  .text          0x00000082        0x0 ./ECUAL_layer/KEYPAD_driver/keypad.o
  .text          0x00000082        0x0 ./ECUAL_layer/BUTTON_driver/button.o
@@ -285,41 +287,45 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .text.GPIO_portToggle
                 0x00001226       0x56 ./MCAL_layer/GPIO_driver/gpio.o
                 0x00001226                GPIO_portToggle
+ .text.SEVEN_SEG_init
+                0x0000127c       0x56 ./ECUAL_layer/SEVEN_SEG_driver/seven_seg.o
+                0x0000127c                SEVEN_SEG_init
+ .text.SEVEN_SEG_write
+                0x000012d2      0x390 ./ECUAL_layer/SEVEN_SEG_driver/seven_seg.o
+                0x000012d2                SEVEN_SEG_write
  .text.LED_init
-                0x0000127c       0x9c ./ECUAL_layer/LED_driver/led.o
-                0x0000127c                LED_init
- .text.LED_on   0x00001318       0x72 ./ECUAL_layer/LED_driver/led.o
-                0x00001318                LED_on
- .text.LED_off  0x0000138a       0x72 ./ECUAL_layer/LED_driver/led.o
-                0x0000138a                LED_off
+                0x00001662       0x9c ./ECUAL_layer/LED_driver/led.o
+                0x00001662                LED_init
+ .text.LED_on   0x000016fe       0x72 ./ECUAL_layer/LED_driver/led.o
+                0x000016fe                LED_on
+ .text.LED_off  0x00001770       0x72 ./ECUAL_layer/LED_driver/led.o
+                0x00001770                LED_off
  .text.LED_toggle
-                0x000013fc       0x70 ./ECUAL_layer/LED_driver/led.o
-                0x000013fc                LED_toggle
+                0x000017e2       0x70 ./ECUAL_layer/LED_driver/led.o
+                0x000017e2                LED_toggle
  .text.KEYPAD_init
-                0x0000146c       0x96 ./ECUAL_layer/KEYPAD_driver/keypad.o
-                0x0000146c                KEYPAD_init
+                0x00001852       0x96 ./ECUAL_layer/KEYPAD_driver/keypad.o
+                0x00001852                KEYPAD_init
  .text.KEYPAD_getPressedKey
-                0x00001502      0x208 ./ECUAL_layer/KEYPAD_driver/keypad.o
-                0x00001502                KEYPAD_getPressedKey
+                0x000018e8      0x208 ./ECUAL_layer/KEYPAD_driver/keypad.o
+                0x000018e8                KEYPAD_getPressedKey
  .text.BUTTON_init
-                0x0000170a       0x98 ./ECUAL_layer/BUTTON_driver/button.o
-                0x0000170a                BUTTON_init
+                0x00001af0       0x98 ./ECUAL_layer/BUTTON_driver/button.o
+                0x00001af0                BUTTON_init
  .text.BUTTON_read
-                0x000017a2       0xe2 ./ECUAL_layer/BUTTON_driver/button.o
-                0x000017a2                BUTTON_read
- .text.main     0x00001884      0x124 ./main.o
-                0x00001884                main
- .text.libgcc   0x000019a8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x000019a8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x000019a8       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
-                0x000019a8                __prologue_saves__
- .text.libgcc   0x000019e0       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
-                0x000019e0                __epilogue_restores__
-                0x00001a16                . = ALIGN (0x2)
+                0x00001b88       0xe2 ./ECUAL_layer/BUTTON_driver/button.o
+                0x00001b88                BUTTON_read
+ .text.libgcc   0x00001c6a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00001c6a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00001c6a       0x38 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                0x00001c6a                __prologue_saves__
+ .text.libgcc   0x00001ca2       0x36 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x00001ca2                __epilogue_restores__
+                0x00001cd8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001a16        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00001a16                exit
-                0x00001a16                _exit
+ .fini9         0x00001cd8        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00001cd8                exit
+                0x00001cd8                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -338,15 +344,16 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001a16        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00001cd8        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00001a1a                _etext = .
+                0x00001cdc                _etext = .
 
-.data           0x00800060       0x30 load address 0x00001a1a
+.data           0x00800060       0x3a load address 0x00001cdc
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
  .data          0x00800060        0x0 ./MCAL_layer/GPIO_driver/gpio.o
+ .data          0x00800060        0x0 ./ECUAL_layer/SEVEN_SEG_driver/seven_seg.o
  .data          0x00800060        0x0 ./ECUAL_layer/LED_driver/led.o
  .data          0x00800060        0x0 ./ECUAL_layer/KEYPAD_driver/keypad.o
  .data          0x00800060        0x0 ./ECUAL_layer/BUTTON_driver/button.o
@@ -382,47 +389,51 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00800080                btn_values
  *(.rodata)
  *(.rodata*)
+ .rodata.SEVEN_SEG_INPUT
+                0x00800090        0xa ./ECUAL_layer/SEVEN_SEG_driver/seven_seg.o
+                0x00800090                SEVEN_SEG_INPUT
  *(.gnu.linkonce.d*)
-                0x00800090                . = ALIGN (0x2)
-                0x00800090                _edata = .
-                0x00800090                PROVIDE (__data_end, .)
+                0x0080009a                . = ALIGN (0x2)
+                0x0080009a                _edata = .
+                0x0080009a                PROVIDE (__data_end, .)
 
-.bss            0x00800090        0x0
-                0x00800090                PROVIDE (__bss_start, .)
+.bss            0x0080009a        0x0
+                0x0080009a                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
- .bss           0x00800090        0x0 ./MCAL_layer/GPIO_driver/gpio.o
- .bss           0x00800090        0x0 ./ECUAL_layer/LED_driver/led.o
- .bss           0x00800090        0x0 ./ECUAL_layer/KEYPAD_driver/keypad.o
- .bss           0x00800090        0x0 ./ECUAL_layer/BUTTON_driver/button.o
- .bss           0x00800090        0x0 ./main.o
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
- .bss           0x00800090        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
+ .bss           0x0080009a        0x0 ./MCAL_layer/GPIO_driver/gpio.o
+ .bss           0x0080009a        0x0 ./ECUAL_layer/SEVEN_SEG_driver/seven_seg.o
+ .bss           0x0080009a        0x0 ./ECUAL_layer/LED_driver/led.o
+ .bss           0x0080009a        0x0 ./ECUAL_layer/KEYPAD_driver/keypad.o
+ .bss           0x0080009a        0x0 ./ECUAL_layer/BUTTON_driver/button.o
+ .bss           0x0080009a        0x0 ./main.o
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .bss           0x0080009a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
  *(.bss*)
  *(COMMON)
-                0x00800090                PROVIDE (__bss_end, .)
-                0x00001a1a                __data_load_start = LOADADDR (.data)
-                0x00001a4a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0080009a                PROVIDE (__bss_end, .)
+                0x00001cdc                __data_load_start = LOADADDR (.data)
+                0x00001d16                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800090        0x0
-                0x00800090                PROVIDE (__noinit_start, .)
+.noinit         0x0080009a        0x0
+                0x0080009a                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800090                PROVIDE (__noinit_end, .)
-                0x00800090                _end = .
-                0x00800090                PROVIDE (__heap_start, .)
+                0x0080009a                PROVIDE (__noinit_end, .)
+                0x0080009a                _end = .
+                0x0080009a                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -440,21 +451,23 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x1ce0
+.stab           0x00000000     0x1fc8
  *(.stab)
  .stab          0x00000000      0xaf8 ./MCAL_layer/GPIO_driver/gpio.o
- .stab          0x00000af8      0x51c ./ECUAL_layer/LED_driver/led.o
+ .stab          0x00000af8      0x444 ./ECUAL_layer/SEVEN_SEG_driver/seven_seg.o
+                                0x450 (size before relaxing)
+ .stab          0x00000f3c      0x51c ./ECUAL_layer/LED_driver/led.o
                                 0x528 (size before relaxing)
- .stab          0x00001014      0x570 ./ECUAL_layer/KEYPAD_driver/keypad.o
+ .stab          0x00001458      0x570 ./ECUAL_layer/KEYPAD_driver/keypad.o
                                 0x6fc (size before relaxing)
- .stab          0x00001584      0x414 ./ECUAL_layer/BUTTON_driver/button.o
+ .stab          0x000019c8      0x414 ./ECUAL_layer/BUTTON_driver/button.o
                                 0x420 (size before relaxing)
- .stab          0x00001998      0x348 ./main.o
-                                0x600 (size before relaxing)
+ .stab          0x00001ddc      0x1ec ./main.o
+                                0x4a4 (size before relaxing)
 
-.stabstr        0x00000000     0x17fb
+.stabstr        0x00000000     0x1a62
  *(.stabstr)
- .stabstr       0x00000000     0x17fb ./MCAL_layer/GPIO_driver/gpio.o
+ .stabstr       0x00000000     0x1a62 ./MCAL_layer/GPIO_driver/gpio.o
 
 .stab.excl
  *(.stab.excl)
