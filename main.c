@@ -13,6 +13,97 @@
 #include "MCAL_layer/GPIO_driver/gpio.h"
 #include "ECUAL_layer/KEYPAD_driver/keypad.h"
 #include "ECUAL_layer/SEVEN_SEG_driver/seven_seg.h"
+#include "ECUAL_layer/LCD_driver/lcd.h"
+
+int main()
+{
+	/*
+	lcd_8bit_t lcd1 =
+	{
+			.rs.port_id = PORTC_ID,
+			.rs.pin_id  = PIN_0,
+			.en.port_id = PORTC_ID,
+			.en.pin_id  = PIN_1,
+
+			.data_pin[0].port_id = PORTD_ID,
+			.data_pin[0].pin_id = PIN_0,
+			.data_pin[1].port_id = PORTD_ID,
+			.data_pin[1].pin_id = PIN_1,
+			.data_pin[2].port_id = PORTD_ID,
+			.data_pin[2].pin_id = PIN_2,
+			.data_pin[3].port_id = PORTD_ID,
+			.data_pin[3].pin_id = PIN_3,
+			.data_pin[4].port_id = PORTD_ID,
+			.data_pin[4].pin_id = PIN_4,
+			.data_pin[5].port_id = PORTD_ID,
+			.data_pin[5].pin_id = PIN_5,
+			.data_pin[6].port_id = PORTD_ID,
+			.data_pin[6].pin_id = PIN_6,
+			.data_pin[7].port_id = PORTD_ID,
+			.data_pin[7].pin_id = PIN_7,
+	};
+
+	lcd_4bit_t lcd2 =
+	{
+			.rs.port_id = PORTC_ID,
+			.rs.pin_id  = PIN_2,
+			.en.port_id = PORTC_ID,
+			.en.pin_id  = PIN_3,
+
+			.data_pin[0].port_id = PORTC_ID,
+			.data_pin[0].pin_id = PIN_4,
+			.data_pin[1].port_id = PORTC_ID,
+			.data_pin[1].pin_id = PIN_5,
+			.data_pin[2].port_id = PORTC_ID,
+			.data_pin[2].pin_id = PIN_6,
+			.data_pin[3].port_id = PORTC_ID,
+			.data_pin[3].pin_id = PIN_7,
+
+	};
+*/
+	lcd_4bit_t kit_lcd =
+		{
+				.rs.port_id = PORTA_ID,
+				.rs.pin_id  = PIN_1,
+				.en.port_id = PORTA_ID,
+				.en.pin_id  = PIN_2,
+
+				.data_pin[0].port_id = PORTA_ID,
+				.data_pin[0].pin_id = PIN_3,
+				.data_pin[1].port_id = PORTA_ID,
+				.data_pin[1].pin_id = PIN_4,
+				.data_pin[2].port_id = PORTA_ID,
+				.data_pin[2].pin_id = PIN_5,
+				.data_pin[3].port_id = PORTA_ID,
+				.data_pin[3].pin_id = PIN_6,
+
+		};
+
+	//LCD_8bit_init(&lcd1);
+	LCD_4bit_init(&kit_lcd);
+
+	uint8 counter;
+	while(1)
+	{
+		//LCD_8bit_sendStringAtPosition(&lcd1, 1, 1, "Counter: ");
+		LCD_4bit_sendStringAtPosition(&kit_lcd, 1, 1, "Loading");
+		for (counter = 0; counter < 10; counter++)
+		{
+			//LCD_8bit_setCursorLocation(&lcd1, 0, 9);
+			//LCD_8bit_sendNum(&lcd1, counter);
+			LCD_4bit_sendChar(&kit_lcd, '.');
+
+
+			_delay_ms(250);
+		}
+		//LCD_8bit_sendCommand(&lcd1, 0x01);
+
+		LCD_4bit_sendCommand(&kit_lcd, 0x01);
+
+
+	}
+}
+
 
 #if 0
 /***************** 7-SEG driver testing without decoder ********************************/
@@ -37,24 +128,24 @@ int main()
 			.segment_type = COMMON_CATHODE
 	};
 
-		pin_obj_t pin11 = {.port_id = PORTB_ID, .pin_id = PIN_0};
-		pin_obj_t pin22 = {.port_id = PORTB_ID, .pin_id = PIN_1};
-		pin_obj_t pin33 = {.port_id = PORTB_ID, .pin_id = PIN_2};
-		pin_obj_t pin44 = {.port_id = PORTB_ID, .pin_id = PIN_3};
-		pin_obj_t pin55 = {.port_id = PORTB_ID, .pin_id = PIN_4};
-		pin_obj_t pin66 = {.port_id = PORTB_ID, .pin_id = PIN_5};
-		pin_obj_t pin77 = {.port_id = PORTB_ID, .pin_id = PIN_6};
+	pin_obj_t pin11 = {.port_id = PORTB_ID, .pin_id = PIN_0};
+	pin_obj_t pin22 = {.port_id = PORTB_ID, .pin_id = PIN_1};
+	pin_obj_t pin33 = {.port_id = PORTB_ID, .pin_id = PIN_2};
+	pin_obj_t pin44 = {.port_id = PORTB_ID, .pin_id = PIN_3};
+	pin_obj_t pin55 = {.port_id = PORTB_ID, .pin_id = PIN_4};
+	pin_obj_t pin66 = {.port_id = PORTB_ID, .pin_id = PIN_5};
+	pin_obj_t pin77 = {.port_id = PORTB_ID, .pin_id = PIN_6};
 
-		seven_seg_t seg2_obj = {
-				.segment_pins[0] = pin11,
-				.segment_pins[1] = pin22,
-				.segment_pins[2] = pin33,
-				.segment_pins[3] = pin44,
-				.segment_pins[4] = pin55,
-				.segment_pins[5] = pin66,
-				.segment_pins[6] = pin77,
-				.segment_type = COMMON_ANODE
-		};
+	seven_seg_t seg2_obj = {
+			.segment_pins[0] = pin11,
+			.segment_pins[1] = pin22,
+			.segment_pins[2] = pin33,
+			.segment_pins[3] = pin44,
+			.segment_pins[4] = pin55,
+			.segment_pins[5] = pin66,
+			.segment_pins[6] = pin77,
+			.segment_type = COMMON_ANODE
+	};
 
 	SEVEN_SEG_init(&seg1_obj);
 	SEVEN_SEG_init(&seg2_obj);

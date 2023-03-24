@@ -24,7 +24,11 @@ typedef signed long long  	sint64;
 typedef uint8 				STD_ReturnType;
 
 /*************** Section: Macro Declarations **********************/
+
+#ifndef NULL
 #define NULL 				((void *) 0)
+#endif
+
 
 #define E_NOT_OK 			((STD_ReturnType) 0x00)
 #define E_OK 				((STD_ReturnType) 0x01)

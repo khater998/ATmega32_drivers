@@ -11,6 +11,7 @@ RM := rm -rf
 -include MCAL_layer/GPIO_driver/subdir.mk
 -include ECUAL_layer/SEVEN_SEG_driver/subdir.mk
 -include ECUAL_layer/LED_driver/subdir.mk
+-include ECUAL_layer/LCD_driver/subdir.mk
 -include ECUAL_layer/KEYPAD_driver/subdir.mk
 -include ECUAL_layer/BUTTON_driver/subdir.mk
 -include subdir.mk

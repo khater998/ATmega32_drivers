@@ -22,6 +22,7 @@ C_DEPS :=
 SUBDIRS := \
 ECUAL_layer/BUTTON_driver \
 ECUAL_layer/KEYPAD_driver \
+ECUAL_layer/LCD_driver \
 ECUAL_layer/LED_driver \
 ECUAL_layer/SEVEN_SEG_driver \
 MCAL_layer/GPIO_driver \

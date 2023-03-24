@@ -12,7 +12,9 @@ main.o main.o: ../main.c ../STD_types.h ../Common_Macros.h \
   ../ECUAL_layer/KEYPAD_driver/../../Common_Macros.h \
   ../ECUAL_layer/KEYPAD_driver/../../MCAL_layer/GPIO_driver/gpio.h \
   ../ECUAL_layer/SEVEN_SEG_driver/seven_seg.h \
-  ../ECUAL_layer/SEVEN_SEG_driver/../../MCAL_layer/GPIO_driver/gpio.h
+  ../ECUAL_layer/SEVEN_SEG_driver/../../MCAL_layer/GPIO_driver/gpio.h \
+  ../ECUAL_layer/LCD_driver/lcd.h \
+  ../ECUAL_layer/LCD_driver/../../MCAL_layer/GPIO_driver/gpio.h
 
 ../STD_types.h:
 
@@ -47,3 +49,7 @@ main.o main.o: ../main.c ../STD_types.h ../Common_Macros.h \
 ../ECUAL_layer/SEVEN_SEG_driver/seven_seg.h:
 
 ../ECUAL_layer/SEVEN_SEG_driver/../../MCAL_layer/GPIO_driver/gpio.h:
+
+../ECUAL_layer/LCD_driver/lcd.h:
+
+../ECUAL_layer/LCD_driver/../../MCAL_layer/GPIO_driver/gpio.h:
