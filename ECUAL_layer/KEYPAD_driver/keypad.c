@@ -6,17 +6,18 @@
  */
 
 
-#include "keypad.h"
+#include "../../ECUAL_layer/KEYPAD_driver/keypad.h"
+
 #include "../../MCAL_layer/GPIO_driver/gpio.h"
 #include <util/delay.h>
 
 
 #if (NUMBER_OF_COLUMNS == 4)
 char btn_values[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS] = {
-		{btn1_value, btn2_value, btn3_value, btn4_value},
-		{btn5_value, btn6_value, btn7_value, btn8_value},
-		{btn9_value, btn10_value, btn11_value, btn12_value},
-		{btn13_value, btn14_value, btn15_value, btn16_value}
+		{btn1_value, btn2_value, btn3_value, btn13_value},
+		{btn4_value, btn5_value, btn6_value, btn14_value},
+		{btn7_value, btn8_value, btn9_value, btn15_value},
+		{btn10_value, btn11_value , btn12_value , btn16_value}
 };
 #elif (NUMBER_OF_COLUMNS == 3)
 char btn_values[NUMBER_OF_ROWS][NUMBER_OF_COLUMNS] = {
@@ -80,19 +81,16 @@ STD_ReturnType KEYPAD_getPressedKey(const keypad_t *keypad_obj, uint8 *value)
 	else{
 		uint8 row_counter,col_counter,state; /* state will check the logic on each column pin */
 		uint8 found_flag = 0;
-		/* make sure that initially all 4 row pin are low logic */
+		/* make sure that initially all 4 rows pins logic is the same as the default of columns pins */
 		for(row_counter = 0; row_counter < NUMBER_OF_ROWS; row_counter++)
 		{
-			error_status = GPIO_pinWrite(&(keypad_obj->rows_pins[row_counter]), GPIO_LOW);
+			error_status = GPIO_pinWrite(&(keypad_obj->rows_pins[row_counter]), KEYPAD_BUTTON_RELEASED);
 		}
 
-		/* Normally, all columns pin are connected to ground,
-		 * if a button is pressed, the relative column pin changes to HIGH.
-		 */
+		/* loop through Rows pins change their logic status one at a time */
 		for(row_counter = 0; row_counter < NUMBER_OF_ROWS; row_counter++)
 		{
-			/* Change an individual row pin to HIGH logic */
-			error_status &= GPIO_pinWrite(&(keypad_obj->rows_pins[row_counter]), GPIO_HIGH);
+			error_status &= GPIO_pinWrite(&(keypad_obj->rows_pins[row_counter]), KEYPAD_BUTTON_PRESSED);
 			_delay_ms(2);
 
 			/* then, read all columns pin status */
@@ -100,8 +98,8 @@ STD_ReturnType KEYPAD_getPressedKey(const keypad_t *keypad_obj, uint8 *value)
 			{
 				error_status &= GPIO_pinRead(&(keypad_obj->columns_pins[col_counter]), &state);
 
-				/* if a columns pin reads HIGH logic, then a specific button has been pressed */
-				if(GPIO_HIGH == state)
+				/* Check if state variable changes to  KEYPAD_BUTTON_PRESSED */
+				if(KEYPAD_BUTTON_PRESSED == state)
 				{
 					/* Store the value in the passed argument */
 					*value = btn_values[row_counter][col_counter];
@@ -112,8 +110,8 @@ STD_ReturnType KEYPAD_getPressedKey(const keypad_t *keypad_obj, uint8 *value)
 				}else{}
 			}
 
-			/* Reset the row pin to LOW logic */
-			error_status &= GPIO_pinWrite(&(keypad_obj->rows_pins[row_counter]), GPIO_LOW);
+			/* Reset the row pin to default */
+			error_status &= GPIO_pinWrite(&(keypad_obj->rows_pins[row_counter]), KEYPAD_BUTTON_RELEASED);
 
 			/* if a key has been pressed, break to end of function */
 			if (1 == found_flag)

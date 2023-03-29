@@ -8,15 +8,38 @@
 #include <util/delay.h>
 #include "STD_types.h"
 #include "Common_Macros.h"
+#include "MCAL_layer/GPIO_driver/gpio.h"
+#include "MCAL_layer/INTERRUPT_driver/interrupt.h"
+
 #include "ECUAL_layer/BUTTON_driver/button.h"
 #include "ECUAL_layer/LED_driver/led.h"
-#include "MCAL_layer/GPIO_driver/gpio.h"
 #include "ECUAL_layer/KEYPAD_driver/keypad.h"
 #include "ECUAL_layer/SEVEN_SEG_driver/seven_seg.h"
 #include "ECUAL_layer/LCD_driver/lcd.h"
 
+	volatile pin_obj_t pa0 = {.port_id = PORTA_ID, .pin_id = PIN_0};
+
+void my_isr(void)
+{
+	GPIO_pinToggle(&pa0);
+}
+
 int main()
 {
+	volatile button_t btn1 = {.port_id = PORTD_ID, .pin_id = PIN_2, .button_active_t = BUTTON_ACTIVE_LOW, .internal_pullup_t = ENABLED};
+	BUTTON_init(&btn1);
+	INTERRUPT_globalInterruptEnable();
+	INTERRUPT_EXTI0_setTrigger(FALLING_EDGE);
+	INTERRUPT_EXTI0_Enable();
+	INTERRUPT_EXTI0_setCallback(my_isr);
+	GPIO_pinDirectionInit(&pa0, GPIO_OUTPUT);
+	while(1)
+	{
+	}
+}
+
+#if 0
+
 	/*
 	lcd_8bit_t lcd1 =
 	{
@@ -259,3 +282,4 @@ int main()
 }
 #endif
 
+#endif

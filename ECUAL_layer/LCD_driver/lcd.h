@@ -84,6 +84,15 @@ STD_ReturnType LCD_4bit_init(const lcd_4bit_t *lcd);
 STD_ReturnType LCD_4bit_sendCommand(const lcd_4bit_t *lcd, uint8 command);
 
 /**
+ * @brief Clears LCD and return cursor to home position
+ * @param lcd: pointer to the LCD object to be controlled
+ * @return status of the function:
+ * 						(E_OK): the function finished successfully
+ * 						(E_NOT_OK): A problem occurred in function
+ */
+STD_ReturnType LCD_4bit_clear(const lcd_4bit_t *lcd);
+
+/**
  * @brief Prints a character on the LCD
  * @param lcd: pointer to the LCD object to be controlled
  * @param _char: The character to be printed on the LCD
@@ -144,6 +153,17 @@ STD_ReturnType LCD_4bit_sendCustomCharAtPosition(const lcd_4bit_t *lcd, uint8 * 
 												uint8 col, uint8 mem_position);
 
 
+/**
+ * brief converts a number to a string then prints it on the LCD
+ * @param lcd: pointer to the LCD object to be controlled
+ * @param num: The number to be printed on the LCD
+ * @return status of the function:
+ * 						(E_OK): the function finished successfully
+ * 						(E_NOT_OK): A problem occurred in function
+ */
+STD_ReturnType LCD_4bit_sendNum(const lcd_4bit_t *lcd, uint32 num);
+
+
 
 
 /**
@@ -154,6 +174,16 @@ STD_ReturnType LCD_4bit_sendCustomCharAtPosition(const lcd_4bit_t *lcd, uint8 * 
  * 						(E_NOT_OK): A problem occurred in function
  */
 STD_ReturnType LCD_8bit_init(const lcd_8bit_t *lcd);
+
+/**
+ * @brief Clears LCD and return cursor to home position
+ * @param lcd: pointer to the LCD object to be controlled
+ * @return status of the function:
+ * 						(E_OK): the function finished successfully
+ * 						(E_NOT_OK): A problem occurred in function
+ */
+STD_ReturnType LCD_8bit_clear(const lcd_8bit_t *lcd);
+
 
 /**
  * @brief Send a command to the LCD controller
@@ -242,7 +272,17 @@ STD_ReturnType LCD_4bit_setCursorLocation(const lcd_4bit_t *lcd, uint8 row, uint
  */
 STD_ReturnType LCD_8bit_setCursorLocation(const lcd_8bit_t *lcd, uint8 row, uint8 col);
 
+/**
+ * @brief Converts a number to a string then prints it to the LCD
+ * @param lcd: Pointer to the LCD object to be controlled
+ * @param num: The number to be printed on the screen
+ * @return status of the function:
+ * 						(E_OK): the function finished successfully
+ * 						(E_NOT_OK): A problem occurred in function
+ */
 STD_ReturnType LCD_8bit_sendNum(const lcd_8bit_t *lcd, uint32 num);
+
+
 
 
 

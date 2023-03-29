@@ -6,7 +6,10 @@
  */
 
 
-#include "lcd.h"
+#include "../../ECUAL_layer/LCD_driver/lcd.h"
+#include "../../STD_types.h"
+
+
 #include <util/delay.h>
 #include <stdio.h>
 
@@ -64,6 +67,31 @@ STD_ReturnType LCD_4bit_init(const lcd_4bit_t *lcd)
 	}
 	return error_status;
 }
+
+/***********************************************************************************************/
+/*								  Function: LCD_4bit_clear                                     */
+/***********************************************************************************************/
+/**
+ * @brief Clears LCD and return cursor to home position
+ * @param lcd: pointer to the LCD object to be controlled
+ * @return status of the function:
+ * 						(E_OK): the function finished successfully
+ * 						(E_NOT_OK): A problem occurred in function
+ */
+STD_ReturnType LCD_4bit_clear(const lcd_4bit_t *lcd)
+{
+	STD_ReturnType error_status = E_OK;
+	if(NULL == lcd)
+	{
+		error_status = E_NOT_OK;
+	}
+	else
+	{
+		LCD_4bit_sendCommand(lcd, _LCD_CLEAR);
+	}
+	return error_status;
+}
+
 
 /***********************************************************************************************/
 /*								  Function: LCD_4bit_sendCommand                               */
@@ -363,6 +391,29 @@ STD_ReturnType LCD_8bit_init(const lcd_8bit_t *lcd)
 
 	return error_status;
 }
+/***********************************************************************************************/
+/*								  Function: LCD_8bit_clear                                     */
+/***********************************************************************************************/
+/**
+ * @brief Clears LCD and return cursor to home position
+ * @param lcd: pointer to the LCD object to be controlled
+ * @return status of the function:
+ * 						(E_OK): the function finished successfully
+ * 						(E_NOT_OK): A problem occurred in function
+ */
+STD_ReturnType LCD_8bit_clear(const lcd_8bit_t *lcd)
+{
+	STD_ReturnType error_status = E_OK;
+	if(NULL == lcd)
+	{
+		error_status = E_NOT_OK;
+	}
+	else
+	{
+		LCD_8bit_sendCommand(lcd, _LCD_CLEAR);
+	}
+	return error_status;
+}
 
 /***********************************************************************************************/
 /*								  Function: LCD_8bit_sendCommand                               */
@@ -546,7 +597,7 @@ STD_ReturnType LCD_8bit_sendStringAtPosition(const lcd_8bit_t *lcd, uint8 row, u
  * 						(E_NOT_OK): A problem occurred in function
  */
 STD_ReturnType LCD_8bit_sendCustomCharAtPosition(const lcd_8bit_t *lcd, uint8 * char_arr, uint8 row,\
-													uint8 col, uint8 mem_position)
+		uint8 col, uint8 mem_position)
 {
 	STD_ReturnType error_status = E_OK;
 	if(NULL == lcd)
@@ -578,7 +629,7 @@ STD_ReturnType LCD_8bit_sendCustomCharAtPosition(const lcd_8bit_t *lcd, uint8 * 
 /*								  Function: LCD_8bit_sendNum                            */
 /***********************************************************************************************/
 /**
- * brief converts a number to a string then prints it on the LCD
+ * @brief converts a number to a string then prints it on the LCD
  * @param lcd: pointer to the LCD object to be controlled
  * @param num: The number to be printed on the LCD
  * @return status of the function:

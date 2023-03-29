@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include MCAL_layer/INTERRUPT_driver/subdir.mk
 -include MCAL_layer/GPIO_driver/subdir.mk
 -include ECUAL_layer/SEVEN_SEG_driver/subdir.mk
 -include ECUAL_layer/LED_driver/subdir.mk
