@@ -5,6 +5,9 @@ main.o main.o: ../main.c ../STD_types.h ../Common_Macros.h \
   ../MCAL_layer/INTERRUPT_driver/interrupt.h \
   ../MCAL_layer/INTERRUPT_driver/../../STD_types.h \
   ../MCAL_layer/INTERRUPT_driver/../../Common_Macros.h \
+  ../MCAL_layer/ADC_driver/adc.h \
+  ../MCAL_layer/ADC_driver/../../STD_types.h \
+  ../MCAL_layer/ADC_driver/../../Common_Macros.h \
   ../ECUAL_layer/BUTTON_driver/button.h \
   ../ECUAL_layer/BUTTON_driver/../../STD_types.h \
   ../ECUAL_layer/BUTTON_driver/../../Common_Macros.h \
@@ -35,6 +38,12 @@ main.o main.o: ../main.c ../STD_types.h ../Common_Macros.h \
 ../MCAL_layer/INTERRUPT_driver/../../STD_types.h:
 
 ../MCAL_layer/INTERRUPT_driver/../../Common_Macros.h:
+
+../MCAL_layer/ADC_driver/adc.h:
+
+../MCAL_layer/ADC_driver/../../STD_types.h:
+
+../MCAL_layer/ADC_driver/../../Common_Macros.h:
 
 ../ECUAL_layer/BUTTON_driver/button.h:
 

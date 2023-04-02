@@ -1,9 +1,14 @@
-/*
- * interrupt.h
+/******************************************************************************
  *
- *  Created on: Mar 29, 2023
- *      Author: khater
- */
+ * Module: INTERRUPT
+ *
+ * File Name: interrupt.h
+ *
+ * Description: Header file for the ATmega32 INTERRUPT driver
+ *
+ * Author: MOHAMED IBRAHIM
+ *
+ *******************************************************************************/
 
 #ifndef INTERRUPT_DRIVER_INTERRUPT_H_
 #define INTERRUPT_DRIVER_INTERRUPT_H_
@@ -39,6 +44,10 @@
 #define INTERRUPT_EXTI0_getFlagState()				READ_BIT(GIFR, INTF0)
 #define INTERRUPT_EXTI1_getFlagState()				READ_BIT(GIFR, INTF1)
 #define INTERRUPT_EXTI2_getFlagState()				READ_BIT(GIFR, INTF2)
+
+#define ISR(vector) void vector(void) __attribute__ ((signal, used, externally_visible)); \
+					void vector(void)
+
 
 /* Peripheral interrupt control macro function (to be added later) */
 

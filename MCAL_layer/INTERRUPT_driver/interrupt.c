@@ -1,21 +1,26 @@
-/*
- * interrupt.c
+/******************************************************************************
  *
- *  Created on: Mar 29, 2023
- *      Author: khater
- */
+ * Module: INTERRUPT
+ *
+ * File Name: interrupt.c
+ *
+ * Description: Source file for the ATmega32 INTERRUPT driver
+ *
+ * Author: MOHAMED IBRAHIM
+ *
+ *******************************************************************************/
+
 
 
 #include "interrupt.h"
 
-
-void INT0_vect (void) __attribute__ ((signal, used, externally_visible));
+/*void INT0_vect (void) __attribute__ ((signal, used, externally_visible));
 void INT1_vect (void) __attribute__ ((signal, used, externally_visible));
-void INT2_vect (void) __attribute__ ((signal, used, externally_visible));
+void INT2_vect (void) __attribute__ ((signal, used, externally_visible));*/
 
-static void (* pf_EXTI0_callback)(void) = NULL;
-static void (* pf_EXTI1_callback)(void) = NULL;
-static void (* pf_EXTI2_callback)(void) = NULL;
+static void (* pf_EXTI0_callBack)(void) = NULL;
+static void (* pf_EXTI1_callBack)(void) = NULL;
+static void (* pf_EXTI2_callBack)(void) = NULL;
 
 /**
  * @brief: Set the trigger condition for EXTI0
@@ -142,7 +147,7 @@ STD_ReturnType INTERRUPT_EXTI0_setCallback(void (* pf_ISR) (void)){
 	}
 	else
 	{
-		pf_EXTI0_callback = pf_ISR;
+		pf_EXTI0_callBack = pf_ISR;
 	}
 	return error_status;
 }
@@ -163,7 +168,7 @@ STD_ReturnType INTERRUPT_EXTI1_setCallback(void (* pf_ISR) (void)){
 	}
 	else
 	{
-		pf_EXTI1_callback = pf_ISR;
+		pf_EXTI1_callBack = pf_ISR;
 	}
 	return error_status;
 }
@@ -185,37 +190,28 @@ STD_ReturnType INTERRUPT_EXTI2_setCallback(void (* pf_ISR) (void)){
 	}
 	else
 	{
-		pf_EXTI2_callback = pf_ISR;
+		pf_EXTI2_callBack = pf_ISR;
 	}
 	return error_status;
 }
 
+#if (pf_EXTI0_callback)
 void INT0_vect(void)
 {
-	pf_EXTI0_callback();
+	pf_EXTI0_callBack();
 }
+#endif
+
+#if (pf_EXTI0_callback)
 void INT1_vect(void)
 {
-	pf_EXTI1_callback();
+	pf_EXTI1_callBack();
 }
+#endif
+
+#if(pf_EXTI2_callback)
 void INT2_vect(void)
 {
-	pf_EXTI2_callback();
-}
-
-#if 0
-ISR(INT0_vect)
-{
-	pf_EXTI0_callback();
-}
-
-ISR(INT1_vect)
-{
-	pf_EXTI1_callback();
-}
-
-ISR(INT2_vect)
-{
-	pf_EXTI2_callback();
+	pf_EXTI2_callBack();
 }
 #endif

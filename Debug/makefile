@@ -10,6 +10,8 @@ RM := rm -rf
 -include sources.mk
 -include MCAL_layer/INTERRUPT_driver/subdir.mk
 -include MCAL_layer/GPIO_driver/subdir.mk
+-include MCAL_layer/EEPROM_driver/subdir.mk
+-include MCAL_layer/ADC_driver/subdir.mk
 -include ECUAL_layer/SEVEN_SEG_driver/subdir.mk
 -include ECUAL_layer/LED_driver/subdir.mk
 -include ECUAL_layer/LCD_driver/subdir.mk
